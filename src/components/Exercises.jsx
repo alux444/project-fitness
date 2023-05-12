@@ -6,6 +6,7 @@ import RandomWorkout from "./RandomWorkout";
 const Exercises = ({ targets }) => {
   const [data, setData] = useState([]);
   const [randomWorkout, setRandomWorkout] = useState(false);
+  const [desiredAmount, setDesiredAmount] = useState(3);
 
   const options = {
     method: "GET",
@@ -21,6 +22,7 @@ const Exercises = ({ targets }) => {
       try {
         const response = await axios.request(options);
         setData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -52,18 +54,45 @@ const Exercises = ({ targets }) => {
     setRandomWorkout(false);
   };
 
+  const increaseExercises = (e) => {
+    e.preventDefault();
+    setDesiredAmount(desiredAmount + 1);
+  };
+
+  const decreaseExercises = (e) => {
+    e.preventDefault();
+    if (desiredAmount > 1) {
+      setDesiredAmount(desiredAmount - 1);
+    }
+  };
+
   return (
     <div>
-      <form>
-        <button onClick={generateWorkout}>Generate a random workout!</button>
-      </form>
       {randomWorkout ? (
         <div>
-          <RandomWorkout exercises={filteredExercises} />
+          <RandomWorkout
+            exercises={filteredExercises}
+            targets={toFilter}
+            desiredAmount={{ desiredAmount }}
+          />
 
           <button onClick={close}>Close</button>
         </div>
-      ) : null}
+      ) : (
+        <form>
+          <button onClick={generateWorkout}>Generate a random workout!</button>
+          <div>
+            <small>
+              This will generate {desiredAmount} exercise
+              {desiredAmount === 1 ? null : "s"} for each selection!
+            </small>
+            <div>
+              <button onClick={increaseExercises}>Increase this!</button>
+              <button onClick={decreaseExercises}>Decrease this!</button>
+            </div>
+          </div>
+        </form>
+      )}
       <h3>Checkout other related exercises!</h3>
       {displays}
     </div>

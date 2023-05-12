@@ -3,8 +3,10 @@ import SelectBox from "./SelectBox";
 import Exercises from "./Exercises";
 
 const SelectExercises = () => {
+  //creates a state for if data is submitted
   const [submitted, setSubmitted] = useState(false);
 
+  //initially sets every selected exercise to false.
   const initial = {
     //legs
     abductors: false,
@@ -12,6 +14,7 @@ const SelectExercises = () => {
     glutes: false,
     hamstrings: false,
     quads: false,
+    calves: false,
     //chest and shoulders
     pectorals: false,
     delts: false,
@@ -23,7 +26,7 @@ const SelectExercises = () => {
     upperBack: false,
     traps: false,
     lats: false,
-    scapula: false,
+    scapulae: false,
     //other
     abs: false,
     spine: false,
@@ -31,9 +34,16 @@ const SelectExercises = () => {
     cardio: false,
   };
 
-  const legs = ["abductors", "adductors", "glutes", "hamstrings", "quads"];
-  const arms = ["chest", "shoulders", "biceps", "triceps", "forearms"];
-  const back = ["upperBack", "traps", "scapula", "lats"];
+  const legs = [
+    "abductors",
+    "adductors",
+    "glutes",
+    "hamstrings",
+    "quads",
+    "calves",
+  ];
+  const arms = ["pectorals", "delts", "biceps", "triceps", "forearms"];
+  const back = ["upper back", "traps", "scapulae", "lats"];
   const other = ["abs", "spine", "serratus", "cardio"];
 
   const [selectedMuscles, setSelectedMuscles] = useState(initial);

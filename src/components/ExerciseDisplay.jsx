@@ -1,6 +1,7 @@
 import React from "react";
 
 const ExerciseDisplay = ({ exercise }) => {
+  //maps an inputted exercise object to a display.
   return (
     <div>
       <div>
