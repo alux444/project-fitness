@@ -47,12 +47,24 @@ const Exercises = ({ targets }) => {
     setRandomWorkout(true);
   };
 
+  const close = (e) => {
+    e.preventDefault();
+    setRandomWorkout(false);
+  };
+
   return (
     <div>
       <form>
         <button onClick={generateWorkout}>Generate a random workout!</button>
       </form>
-      {randomWorkout ? <RandomWorkout exercises={filteredExercises} /> : null}
+      {randomWorkout ? (
+        <div>
+          <RandomWorkout exercises={filteredExercises} />
+
+          <button onClick={close}>Close</button>
+        </div>
+      ) : null}
+      <h3>Checkout other related exercises!</h3>
       {displays}
     </div>
   );
