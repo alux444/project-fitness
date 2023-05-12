@@ -4,17 +4,21 @@ import { all } from "axios";
 
 const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
   const [workout, setWorkout] = useState([]);
+  const [seperatedExercises, setSeperatedExercises] = useState({});
+  const [randomNumbers, setRandomNumbers] = useState({});
 
   //destructuring the large exercise array into one for each respective bodypart.
   const allParts = targets;
-  const mappedTargets = [];
 
   const mapAll = () => {
+    const mappedTargets = [];
     for (let i = 0; i < allParts.length; i++) {
       mappedTargets.push(
         exercises.filter((exercise) => exercise.target.includes(allParts[i]))
       );
     }
+    console.log(mappedTargets);
+    setSeperatedExercises(mappedTargets);
   };
 
   //generates an array of non repeated numbers, based on an inputted length and desired length of the array.
@@ -27,26 +31,31 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
         newNumbers.push(tempNumber);
       }
     }
+    console.log(newNumbers);
     return newNumbers;
   };
 
   const amount = desiredAmount;
 
   const test = (e) => {
-    console.log(workout);
+    console.log(seperatedExercises);
+    console.log(randomNumbers);
+    console.log(randomNumbers[0][2]);
   };
 
   //creates a number arrays variable, containing 2 seperate arrays of numbers for each respective exercise to be mapped
-  const numberArrays = [];
+
   const mapNumbers = () => {
+    const numberArrays = [];
     for (let i = 0; i < allParts.length; i++) {
       numberArrays.push(
         generateNumber(
-          Object.keys(mappedTargets[i]).length,
+          Object.keys(seperatedExercises[i]).length,
           amount.desiredAmount
         )
       );
     }
+    setRandomNumbers(numberArrays);
   };
 
   //finally, map everything to get a display for the random exercises.
@@ -54,7 +63,7 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
     const work = [];
     for (let i = 0; i < allParts.length; i++) {
       for (let j = 0; j < amount.desiredAmount; j++) {
-        work.push(mappedTargets[i][j]);
+        work.push(seperatedExercises[i][randomNumbers[i][j]]);
       }
     }
     return work;
@@ -74,6 +83,7 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
 
   const reroll = () => {
     mapNumbers();
+    setWorkout(createWorkout());
   };
 
   return (
