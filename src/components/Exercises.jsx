@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Exercises = () => {
+const Exercises = ({ targets }) => {
   const [data, setData] = useState([]);
 
   const options = {
@@ -18,7 +18,6 @@ const Exercises = () => {
       try {
         const response = await axios.request(options);
         setData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -26,14 +25,25 @@ const Exercises = () => {
     getData();
   }, []);
 
-  const target = "quads";
-  const newss = data.filter((exercise) => exercise.target === target);
-  console.log(newss);
+  const a = () => {
+    console.log(data);
+    console.log(aa);
+  };
+
+  const toFilter = targets;
+
+  const filteredExercises = data.filter((exercise) => {
+    for (let i = 0; i < toFilter.length; i++) {
+      if (exercise.target.includes(toFilter[i])) {
+        return exercise;
+      }
+    }
+  });
 
   return (
     <div>
       <p>hello</p>
-      <button>aaa</button>
+      <button onClick={a}>aaa</button>
     </div>
   );
 };

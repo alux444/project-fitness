@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SelectBox from "./SelectBox";
+import Exercises from "./Exercises";
 
 const SelectExercises = () => {
+  const [submitted, setSubmitted] = useState(false);
+
   const initial = {
     //legs
     abductors: false,
@@ -10,8 +13,8 @@ const SelectExercises = () => {
     hamstrings: false,
     quads: false,
     //chest and shoulders
-    chest: false,
-    shoulders: false,
+    pectorals: false,
+    delts: false,
     //arms
     biceps: false,
     triceps: false,
@@ -43,6 +46,7 @@ const SelectExercises = () => {
       (key) => selectedMuscles[key]
     );
     setFinal(submittedMuscles);
+    setSubmitted(true);
   };
 
   const handleSelect = (e) => {
@@ -77,6 +81,7 @@ const SelectExercises = () => {
           <button onClick={handleFormSubmit}>Submit</button>
         </div>
       </form>
+      {submitted ? <Exercises targets={final} /> : null}
     </div>
   );
 };
