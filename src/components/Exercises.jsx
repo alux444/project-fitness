@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ExerciseDisplay from "./ExerciseDisplay";
+import RandomWorkout from "./RandomWorkout";
 
 const Exercises = ({ targets }) => {
   const [data, setData] = useState([]);
+  const [randomWorkout, setRandomWorkout] = useState(false);
 
   const options = {
     method: "GET",
@@ -25,11 +28,6 @@ const Exercises = ({ targets }) => {
     getData();
   }, []);
 
-  const a = () => {
-    console.log(data);
-    console.log(aa);
-  };
-
   const toFilter = targets;
 
   const filteredExercises = data.filter((exercise) => {
@@ -40,10 +38,22 @@ const Exercises = ({ targets }) => {
     }
   });
 
+  const displays = filteredExercises.map((exercise) => (
+    <ExerciseDisplay key={exercise.id} exercise={exercise} />
+  ));
+
+  const generateWorkout = (e) => {
+    e.preventDefault();
+    setRandomWorkout(true);
+  };
+
   return (
     <div>
-      <p>hello</p>
-      <button onClick={a}>aaa</button>
+      <form>
+        <button onClick={generateWorkout}>Generate a random workout!</button>
+      </form>
+      {randomWorkout ? <RandomWorkout exercises={filteredExercises} /> : null}
+      {displays}
     </div>
   );
 };
