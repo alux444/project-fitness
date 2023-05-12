@@ -64,18 +64,18 @@ const SelectExercises = () => {
     setSelectedMuscles({ ...selectedMuscles, [name]: !selectedMuscles[name] });
   };
 
-  const mappedLegs = legs.map((muscle) => (
-    <SelectBox bodyPart={muscle} onChange={handleSelect} />
-  ));
-  const mappedArms = arms.map((muscle) => (
-    <SelectBox bodyPart={muscle} onChange={handleSelect} />
-  ));
-  const mappedBack = back.map((muscle) => (
-    <SelectBox bodyPart={muscle} onChange={handleSelect} />
-  ));
-  const mappedOther = other.map((muscle) => (
-    <SelectBox bodyPart={muscle} onChange={handleSelect} />
-  ));
+  const mappedLegs = legs.map((muscle) => {
+    return <SelectBox bodyPart={muscle} onChange={handleSelect} />;
+  });
+  const mappedArms = arms.map((muscle) => {
+    return <SelectBox bodyPart={muscle} onChange={handleSelect} />;
+  });
+  const mappedBack = back.map((muscle) => {
+    return <SelectBox bodyPart={muscle} onChange={handleSelect} />;
+  });
+  const mappedOther = other.map((muscle) => {
+    return <SelectBox bodyPart={muscle} onChange={handleSelect} />;
+  });
 
   return (
     <div>
