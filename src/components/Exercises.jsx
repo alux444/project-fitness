@@ -4,9 +4,11 @@ import ExerciseDisplay from "./ExerciseDisplay";
 import RandomWorkout from "./RandomWorkout";
 
 const Exercises = ({ targets }) => {
-  const [data, setData] = useState([]);
   const [randomWorkout, setRandomWorkout] = useState(false);
   const [desiredAmount, setDesiredAmount] = useState(3);
+
+  //api call to get all exercises as an object
+  const [data, setData] = useState([]);
 
   const options = {
     method: "GET",
@@ -56,7 +58,9 @@ const Exercises = ({ targets }) => {
 
   const increaseExercises = (e) => {
     e.preventDefault();
-    setDesiredAmount(desiredAmount + 1);
+    if (desiredAmount < 6) {
+      setDesiredAmount(desiredAmount + 1);
+    }
   };
 
   const decreaseExercises = (e) => {
@@ -84,7 +88,8 @@ const Exercises = ({ targets }) => {
           <div>
             <small>
               This will generate {desiredAmount} exercise
-              {desiredAmount === 1 ? null : "s"} for each selection!
+              {desiredAmount === 1 ? null : "s"} for each selection! Maximum of
+              6
             </small>
             <div>
               <button onClick={increaseExercises}>Increase this!</button>

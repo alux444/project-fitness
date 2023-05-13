@@ -11,8 +11,9 @@ const ExerciseDisplay = ({ exercise }) => {
       </div>
       <img src={exercise.gifUrl} style={{ width: "20%", height: "20%" }} />
       <div>
-        <button onClick={() => fetchVideos()}>Learn More!</button>
-        <Link to={`/exercise/${exercise.name}`}>Go to Component Page</Link>
+        <Link to={`/exercise/${exercise.id}`} state={exercise}>
+          <button>Learn More!</button>
+        </Link>
       </div>
     </div>
   );

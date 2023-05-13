@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ExerciseDisplay from "./ExerciseDisplay";
-import { all } from "axios";
 
 const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
   const [workout, setWorkout] = useState([]);

@@ -7,7 +7,6 @@ function App() {
   return (
     <>
       <Router>
-        <h1>React Fitness Site</h1>
         <Routes>
           <Route path="/" element={<SelectExercises />} />
           <Route path="/exercise/:id" element={<ExercisePage />} />

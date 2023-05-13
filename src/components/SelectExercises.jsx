@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SelectBox from "./SelectBox";
+import SearchBar from "./SearchBar";
 import Exercises from "./Exercises";
 
 const SelectExercises = () => {
   //creates a state for if data is submitted
   const [submitted, setSubmitted] = useState(false);
+  const [search, setSearch] = useState(false);
 
   //initially sets every selected exercise to false.
   const initial = {
@@ -64,6 +66,11 @@ const SelectExercises = () => {
     setSelectedMuscles({ ...selectedMuscles, [name]: !selectedMuscles[name] });
   };
 
+  const handleToSearch = () => {
+    setSearch(!search);
+    setSubmitted(false);
+  };
+
   const mappedLegs = legs.map((muscle) => {
     return <SelectBox bodyPart={muscle} onChange={handleSelect} />;
   });
@@ -79,18 +86,27 @@ const SelectExercises = () => {
 
   return (
     <div>
-      <h1>Select your muscle groups</h1>
-      <form>
-        <div style={{ display: "inline-block" }}>
-          {mappedLegs}
-          {mappedArms}
-          {mappedBack}
-          {mappedOther}
-        </div>
-        <div>
-          <button onClick={handleFormSubmit}>Submit</button>
-        </div>
-      </form>
+      {search ? (
+        <SearchBar handleBack={handleToSearch} />
+      ) : (
+        <>
+          <h1>Select your muscle groups</h1>
+          <button onClick={() => handleToSearch()}>
+            Or use our search function!
+          </button>
+          <form>
+            <div style={{ display: "inline-block" }}>
+              {mappedLegs}
+              {mappedArms}
+              {mappedBack}
+              {mappedOther}
+            </div>
+            <div>
+              <button onClick={handleFormSubmit}>Submit</button>
+            </div>
+          </form>
+        </>
+      )}
       {submitted ? <Exercises targets={final} /> : null}
     </div>
   );

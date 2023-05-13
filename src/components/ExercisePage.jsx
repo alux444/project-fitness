@@ -1,10 +1,12 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 const ExercisePage = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const data = location.state;
 
   const [videos, setVideos] = useState([]);
 
@@ -14,7 +16,7 @@ const ExercisePage = () => {
       const options = {
         method: "GET",
         url: "https://youtube-search-results.p.rapidapi.com/youtube-search/",
-        params: { q: `${id} exercise tutorial` },
+        params: { q: `${data.name} exercise tutorial` },
         headers: {
           "X-RapidAPI-Key": import.meta.env.VITE_YOUTUBE_KEY,
           "X-RapidAPI-Host": "youtube-search-results.p.rapidapi.com",
@@ -37,11 +39,13 @@ const ExercisePage = () => {
   const mappedVids = videos.map((video) => (
     <div key={video.id}>
       <h5>{video.title}</h5>
-      <img
-        src={video.bestThumbnail.url}
-        height={video.bestThumbnail.height}
-        width={video.bestThumbnail.width}
-      />
+      <a href={video.url} target="_blank" rel="noreferrer">
+        <img
+          src={video.bestThumbnail.url}
+          height={video.bestThumbnail.height}
+          width={video.bestThumbnail.width}
+        />
+      </a>
       {/* <iframe
         width="560"
         height="315"
@@ -50,19 +54,21 @@ const ExercisePage = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe> */}
-      <a href={video.url} target="_blank">
-        Link to Video!
-      </a>
     </div>
   ));
 
   const test = () => {
     console.log(videos);
+    console.log(data);
   };
 
   return (
     <div>
-      <p>{id}</p>
+      <h3>{data.name}</h3>
+      <h5>
+        {data.target} / {data.bodyPart}
+      </h5>
+      <img src={data.gifUrl} />
       <button onClick={test}>test</button>
       {mappedVids}
     </div>
