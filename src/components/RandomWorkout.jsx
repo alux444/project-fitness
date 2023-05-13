@@ -101,14 +101,8 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
     setReset(!reset);
   };
 
-  const test = (e) => {
-    console.log(seperatedExercises);
-    console.log(randomNumbers);
-  };
-
   return (
     <div>
-      <button onClick={test}>aaa</button>
       {loading ? <p>Loading...</p> : <p>Your Workout Is:</p>}
       <div style={{ display: "flex", gap: "20px" }}>{program}</div>
       <button onClick={() => reroll()}>Reroll!</button>
