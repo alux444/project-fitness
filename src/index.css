@@ -56,11 +56,49 @@ button:focus-visible {
 }
 
 .exercise-page {
+  padding: 15px;
   position: absolute;
   width: 800px;
   height: min-content;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.95);
   border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+.pagination-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-list li {
+  margin: 0 3px;
+}
+
+.exercise-displays {
+  display: flex;
+  justify-content: center;
+}
+
+.parent {
+  position: relative;
+}
+
+.selections {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selection-box {
+  flex: 0 0 20%;
+}
+
+.exercise-item {
+  margin-bottom: 10px;
+  flex: 0 0 33%;
 }
 
 @media (prefers-color-scheme: light) {

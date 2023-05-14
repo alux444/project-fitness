@@ -95,7 +95,7 @@ const SelectExercises = () => {
             Or use our search function!
           </button>
           <form>
-            <div style={{ display: "inline-block" }}>
+            <div className="selections">
               {mappedLegs}
               {mappedArms}
               {mappedBack}

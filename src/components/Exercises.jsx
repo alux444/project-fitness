@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ExerciseDisplay from "./ExerciseDisplay";
 import RandomWorkout from "./RandomWorkout";
+import Pagination from "./Pagination";
 
 const Exercises = ({ targets }) => {
   const [randomWorkout, setRandomWorkout] = useState(false);
   const [desiredAmount, setDesiredAmount] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
+  const topOfDisplays = useRef(null);
 
   //api call to get all exercises as an object
   const [data, setData] = useState([]);
@@ -33,19 +36,12 @@ const Exercises = ({ targets }) => {
   }, []);
 
   const toFilter = targets;
-
   const filteredExercises = data.filter((exercise) => {
     for (let i = 0; i < toFilter.length; i++) {
       if (exercise.target.includes(toFilter[i])) {
         return exercise;
       }
     }
-  });
-
-  const displays = filteredExercises.map((exercise) => {
-    return (
-      <ExerciseDisplay key={exercise.id} exercise={exercise} allData={data} />
-    );
   });
 
   const generateWorkout = (e) => {
@@ -60,9 +56,7 @@ const Exercises = ({ targets }) => {
 
   const increaseExercises = (e) => {
     e.preventDefault();
-    if (desiredAmount < 6) {
-      setDesiredAmount(desiredAmount + 1);
-    }
+    setDesiredAmount(desiredAmount + 1);
   };
 
   const decreaseExercises = (e) => {
@@ -72,6 +66,29 @@ const Exercises = ({ targets }) => {
     }
   };
 
+  //get current exercises
+  const indexOfLastExercise = currentPage * 12;
+  const indexOfFirstExercise = indexOfLastExercise - 12;
+  const currentExercises = filteredExercises.slice(
+    indexOfFirstExercise,
+    indexOfLastExercise
+  );
+
+  //paginate layout
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    setTimeout(() => {
+      topOfDisplays.current.scrollIntoView({ behavior: "smooth" });
+    }, 1000);
+  };
+
+  //exercise displays
+  const displays = currentExercises.map((exercise) => {
+    return (
+      <ExerciseDisplay key={exercise.id} exercise={exercise} allData={data} />
+    );
+  });
+
   return (
     <div>
       {randomWorkout ? (
@@ -80,6 +97,7 @@ const Exercises = ({ targets }) => {
             exercises={filteredExercises}
             targets={toFilter}
             desiredAmount={{ desiredAmount }}
+            allData={data}
           />
 
           <button onClick={close}>Close</button>
@@ -90,8 +108,7 @@ const Exercises = ({ targets }) => {
           <div>
             <small>
               This will generate {desiredAmount} exercise
-              {desiredAmount === 1 ? null : "s"} for each selection! Maximum of
-              6
+              {desiredAmount === 1 ? null : "s"} for each selection!
             </small>
             <div>
               <button onClick={increaseExercises}>Increase this!</button>
@@ -100,8 +117,14 @@ const Exercises = ({ targets }) => {
           </div>
         </form>
       )}
-      <h3>Checkout other related exercises!</h3>
-      {displays}
+      <h3 ref={topOfDisplays}>Checkout other related exercises!</h3>
+      <div className="selections">{displays}</div>
+      <Pagination
+        totalDisplay={filteredExercises.length}
+        displaysPerPage="12"
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

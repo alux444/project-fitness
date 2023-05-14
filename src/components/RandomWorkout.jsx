@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import ExerciseDisplay from "./ExerciseDisplay";
 
-const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
+const RandomWorkout = ({ exercises, targets, desiredAmount, allData }) => {
   const [workout, setWorkout] = useState([]);
   const [seperatedExercises, setSeperatedExercises] = useState({});
   const [randomNumbers, setRandomNumbers] = useState({});
   const [loading, setLoading] = useState(true);
   const [reset, setReset] = useState(false);
+  const [error, setError] = useState(false);
+
+  // if (error) {
+  //   return (
+  //     <div>
+  //       <p>
+  //         Sorry, one of the bodyparts you listed doesnt have enough exercises.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   const allParts = targets;
   const amount = desiredAmount;
@@ -23,7 +34,18 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
         );
       }
       console.log("mapped");
-      setSeperatedExercises(mappedTargets);
+
+      for (let i = 0; i < allParts.length; i++) {
+        let errors = 0;
+        if (mappedTargets[i].length < desiredAmount.desiredAmount) {
+          setError(true);
+          console.log("error set to true");
+          errors++;
+        }
+        if (errors === 0) {
+          setSeperatedExercises(mappedTargets);
+        }
+      }
     };
 
     setTimeout(() => {
@@ -65,14 +87,12 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
           work.push(seperatedExercises[i][randomNumbers[i][j]]);
         }
       }
-      console.log("set");
       return work;
     };
 
     setTimeout(() => {
       if (randomNumbers.length > 0) {
         setWorkout(createWorkout());
-        console.log("setting");
       }
     });
     setLoading(false);
@@ -93,7 +113,13 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
 
   //maps the final workout to the display
   const program = workout.map((exercise) => {
-    return <ExerciseDisplay key={exercise.id} exercise={exercise} />;
+    return (
+      <ExerciseDisplay
+        key={exercise.id}
+        exercise={exercise}
+        allData={allData}
+      />
+    );
   });
 
   const reroll = () => {
@@ -102,9 +128,19 @@ const RandomWorkout = ({ exercises, targets, desiredAmount }) => {
 
   return (
     <div>
-      {loading ? <p>Loading...</p> : <p>Your Workout Is:</p>}
-      <div style={{ display: "flex", gap: "20px" }}>{program}</div>
-      <button onClick={() => reroll()}>Reroll!</button>
+      {error ? (
+        <div>
+          <small>
+            Sorry, one of your exercises didn't have enough exercises avaliable.
+          </small>
+        </div>
+      ) : (
+        <div>
+          {loading ? <p>Loading...</p> : <p>Your Workout Is:</p>}
+          <div className="selections">{program}</div>
+          <button onClick={() => reroll()}>Reroll!</button>
+        </div>
+      )}
     </div>
   );
 };

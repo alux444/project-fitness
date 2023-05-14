@@ -6,6 +6,7 @@ import ExerciseDisplay from "./ExerciseDisplay";
 const ExercisePage = ({ exercise, handleClose, allData }) => {
   const data = exercise;
   const allExercises = allData;
+  const [randomNumber, setRandomNumber] = useState(0);
 
   const [videos, setVideos] = useState([]);
 
@@ -43,27 +44,40 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
           src={video.bestThumbnail.url}
           height={video.bestThumbnail.height}
           width={video.bestThumbnail.width}
-          style={{ width: "30%", height: "30%" }}
+          style={{ width: "50%", height: "50%" }}
         />
       </a>
     </div>
   ));
 
-  const similarTarget = allExercises
-    .filter((exercise) => exercise.target.includes(data.target))
-    .map((exercise) => (
-      <ExerciseDisplay
-        key={exercise.id}
-        exercise={exercise}
-        allData={allExercises}
-      />
-    ));
+  const similarTarget = allExercises.filter((exercise) =>
+    exercise.target.includes(data.target)
+  );
 
   const test = () => {
     console.log(videos);
     console.log(data);
     console.log(allExercises);
   };
+
+  //randomly generate 3 exercises that have the same target muscles to display
+  const getRandomNumber = () => {
+    const num = Math.floor(Math.random() * (similarTarget.length - 4));
+    return num;
+  };
+
+  const currentExercises = similarTarget.slice(randomNumber, randomNumber + 3);
+
+  const reroll = () => {
+    setRandomNumber(getRandomNumber());
+  };
+
+  //exercise displays
+  const displays = currentExercises.map((exercise) => {
+    return (
+      <ExerciseDisplay key={exercise.id} exercise={exercise} allData={data} />
+    );
+  });
 
   return (
     <div className="exercise-page">
@@ -74,9 +88,10 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
       </h5>
       <img src={data.gifUrl} />
       <button onClick={test}>test</button>
-      {mappedVids}
+      <div className="exercise-displays">{mappedVids}</div>
       <h4>Exercises that also target {data.target}</h4>
-      {similarTarget}
+      <div className="exercise-displays">{displays}</div>
+      <button onClick={() => reroll()}>Show me some others!</button>
     </div>
   );
 };
