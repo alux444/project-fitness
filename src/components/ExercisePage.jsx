@@ -1,12 +1,11 @@
 import React from "react";
-import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ExerciseDisplay from "./ExerciseDisplay";
 
-const ExercisePage = () => {
-  const { id } = useParams();
-  const location = useLocation();
-  const data = location.state;
+const ExercisePage = ({ exercise, handleClose, allData }) => {
+  const data = exercise;
+  const allExercises = allData;
 
   const [videos, setVideos] = useState([]);
 
@@ -37,33 +36,38 @@ const ExercisePage = () => {
 
   //map the values of videos
   const mappedVids = videos.map((video) => (
-    <div key={video.id}>
+    <div key={video.id} style={{ display: "inline-block" }}>
       <h5>{video.title}</h5>
       <a href={video.url} target="_blank" rel="noreferrer">
         <img
           src={video.bestThumbnail.url}
           height={video.bestThumbnail.height}
           width={video.bestThumbnail.width}
+          style={{ width: "30%", height: "30%" }}
         />
       </a>
-      {/* <iframe
-        width="560"
-        height="315"
-        src={video.url}
-        title={video.title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe> */}
     </div>
   ));
+
+  const similarTarget = allExercises
+    .filter((exercise) => exercise.target.includes(data.target))
+    .map((exercise) => (
+      <ExerciseDisplay
+        key={exercise.id}
+        exercise={exercise}
+        allData={allExercises}
+      />
+    ));
 
   const test = () => {
     console.log(videos);
     console.log(data);
+    console.log(allExercises);
   };
 
   return (
-    <div>
+    <div className="exercise-page">
+      <button onClick={handleClose}>Close</button>
       <h3>{data.name}</h3>
       <h5>
         {data.target} / {data.bodyPart}
@@ -71,6 +75,8 @@ const ExercisePage = () => {
       <img src={data.gifUrl} />
       <button onClick={test}>test</button>
       {mappedVids}
+      <h4>Exercises that also target {data.target}</h4>
+      {similarTarget}
     </div>
   );
 };

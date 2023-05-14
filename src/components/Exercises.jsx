@@ -43,7 +43,9 @@ const Exercises = ({ targets }) => {
   });
 
   const displays = filteredExercises.map((exercise) => {
-    return <ExerciseDisplay key={exercise.id} exercise={exercise} />;
+    return (
+      <ExerciseDisplay key={exercise.id} exercise={exercise} allData={data} />
+    );
   });
 
   const generateWorkout = (e) => {

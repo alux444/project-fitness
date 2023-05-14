@@ -1,7 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import ExercisePage from "./ExercisePage";
 
-const ExerciseDisplay = ({ exercise }) => {
+const ExerciseDisplay = ({ exercise, allData }) => {
+  const [more, setMore] = useState(false);
+
+  const handleMore = () => {
+    console.log(more);
+    setMore(!more);
+  };
+
   //maps an inputted exercise object to a display.
   return (
     <div>
@@ -11,9 +18,14 @@ const ExerciseDisplay = ({ exercise }) => {
       </div>
       <img src={exercise.gifUrl} style={{ width: "20%", height: "20%" }} />
       <div>
-        <Link to={`/exercise/${exercise.id}`} state={exercise}>
-          <button>Learn More!</button>
-        </Link>
+        <button onClick={() => handleMore()}>Learn More!</button>
+        {more ? (
+          <ExercisePage
+            exercise={exercise}
+            handleClose={handleMore}
+            allData={allData}
+          />
+        ) : null}
       </div>
     </div>
   );
