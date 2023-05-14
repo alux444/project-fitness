@@ -75,7 +75,11 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
   //exercise displays
   const displays = currentExercises.map((exercise) => {
     return (
-      <ExerciseDisplay key={exercise.id} exercise={exercise} allData={data} />
+      <ExerciseDisplay
+        key={exercise.id}
+        exercise={exercise}
+        allData={allData}
+      />
     );
   });
 

@@ -58,7 +58,12 @@ const SelectExercises = () => {
       (key) => selectedMuscles[key]
     );
     setFinal(submittedMuscles);
-    setSubmitted(true);
+    if (submitted === true) {
+      cancelSearch();
+    }
+    setTimeout(() => {
+      setSubmitted(true);
+    }, 1000);
   };
 
   const handleSelect = (e) => {
@@ -68,6 +73,10 @@ const SelectExercises = () => {
 
   const handleToSearch = () => {
     setSearch(!search);
+    setSubmitted(false);
+  };
+
+  const cancelSearch = () => {
     setSubmitted(false);
   };
 
@@ -107,7 +116,7 @@ const SelectExercises = () => {
           </form>
         </>
       )}
-      {submitted ? <Exercises targets={final} /> : null}
+      {submitted ? <Exercises targets={final} cancel={cancelSearch} /> : null}
     </div>
   );
 };

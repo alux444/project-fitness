@@ -9,16 +9,6 @@ const RandomWorkout = ({ exercises, targets, desiredAmount, allData }) => {
   const [reset, setReset] = useState(false);
   const [error, setError] = useState(false);
 
-  // if (error) {
-  //   return (
-  //     <div>
-  //       <p>
-  //         Sorry, one of the bodyparts you listed doesnt have enough exercises.
-  //       </p>
-  //     </div>
-  //   );
-  // }
-
   const allParts = targets;
   const amount = desiredAmount;
 

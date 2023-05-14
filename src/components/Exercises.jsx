@@ -4,7 +4,7 @@ import ExerciseDisplay from "./ExerciseDisplay";
 import RandomWorkout from "./RandomWorkout";
 import Pagination from "./Pagination";
 
-const Exercises = ({ targets }) => {
+const Exercises = ({ targets, cancel }) => {
   const [randomWorkout, setRandomWorkout] = useState(false);
   const [desiredAmount, setDesiredAmount] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +17,7 @@ const Exercises = ({ targets }) => {
     method: "GET",
     url: "https://exercisedb.p.rapidapi.com/exercises",
     headers: {
-      "X-RapidAPI-Key": "5970d757d5msha935d60efb3d4eep18ab26jsnf8fbcf965372",
+      "X-RapidAPI-Key": import.meta.env.VITE_FITNESS_KEY,
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
@@ -91,6 +91,7 @@ const Exercises = ({ targets }) => {
 
   return (
     <div>
+      <button onClick={cancel}>Close Search</button>
       {randomWorkout ? (
         <div>
           <RandomWorkout
