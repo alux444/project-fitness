@@ -26,16 +26,16 @@ const RandomWorkout = ({ exercises, targets, desiredAmount, allData }) => {
       }
       console.log("mapped");
 
+      let errors = 0;
       for (let i = 0; i < allParts.length; i++) {
-        let errors = 0;
         if (mappedTargets[i].length < desiredAmount.desiredAmount) {
           setError(true);
           console.log("error set to true");
           errors++;
         }
-        if (errors === 0) {
-          setSeperatedExercises(mappedTargets);
-        }
+      }
+      if (errors === 0) {
+        setSeperatedExercises(mappedTargets);
       }
     };
 
