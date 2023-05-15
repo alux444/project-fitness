@@ -9,6 +9,7 @@ const RandomWorkout = ({ exercises, targets, desiredAmount, allData }) => {
   const [reset, setReset] = useState(false);
   const [error, setError] = useState(false);
 
+  //set variables
   const allParts = targets;
   const amount = desiredAmount;
 
