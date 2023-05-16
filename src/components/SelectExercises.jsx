@@ -99,7 +99,7 @@ const SelectExercises = () => {
         <SearchBar handleBack={handleToSearch} />
       ) : (
         <>
-          <h1>Select your muscle groups</h1>
+          <h2>Select your muscle groups</h2>
           <button onClick={() => handleToSearch()}>
             Or use our search function!
           </button>

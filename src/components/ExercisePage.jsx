@@ -85,7 +85,7 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
       <h5>
         {data.target} / {data.bodyPart}
       </h5>
-      <img src={data.gifUrl} />
+      <img src={data.gifUrl} className="gif" />
       <div className="video-displays">{mappedVids}</div>
       <h4>Exercises that also target {data.target}</h4>
       <div className="exercise-displays">{displays}</div>
