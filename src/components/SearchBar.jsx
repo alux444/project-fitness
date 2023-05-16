@@ -12,6 +12,7 @@ const SearchBar = ({ handleBack }) => {
 
   function handleChange(event) {
     setSearchInput(event.target.value);
+    setCurrentPage(1);
   }
 
   const options = {
