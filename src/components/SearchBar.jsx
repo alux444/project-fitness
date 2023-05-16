@@ -1,25 +1,25 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ExerciseDisplay from "./ExerciseDisplay";
 import Pagination from "./Pagination";
 
-
 const SearchBar = ({ handleBack }) => {
-  const [searchInput, setSearchInput] = useState("")
-  const [filteredData, setFilteredData] = useState([])
+  const [searchInput, setSearchInput] = useState("");
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const topPage = useRef(null);
 
   function handleChange(event) {
-    setSearchInput(event.target.value)
-    setFilteredData(data.filter((val) => {
-      if (val.name.toLowerCase().includes(searchInput.toLowerCase())) {
-        return val
-      }
-    }))
+    setSearchInput(event.target.value);
+    // setFilteredData(
+    //   data.filter((val) => {
+    //     if (val.name.toLowerCase().includes(searchInput.toLowerCase())) {
+    //       return val;
+    //     }
+    //   })
+    // );
   }
-
 
   const options = {
     method: "GET",
@@ -29,7 +29,6 @@ const SearchBar = ({ handleBack }) => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
-
 
   useEffect(() => {
     const getData = async () => {
@@ -43,24 +42,29 @@ const SearchBar = ({ handleBack }) => {
     };
     getData();
   }, []);
- 
+
+  //filtering data
+  const filteredData = data.filter((val) => {
+    if (val.name.toLowerCase().includes(searchInput.toLowerCase())) {
+      return val;
+    }
+  });
+
   //paginate layout
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
     setTimeout(() => {
-      topOfDisplays.current.scrollIntoView({ behavior: "smooth" });
+      topPage.current.scrollIntoView({ behavior: "smooth" });
     }, 1000);
   };
 
-
   //get current exercises
-  const indexOfLastExercise = currentPage * 12;
-  const indexOfFirstExercise = indexOfLastExercise - 12;
+  const indexOfLastExercise = currentPage * 16;
+  const indexOfFirstExercise = indexOfLastExercise - 16;
   const currentExercises = filteredData.slice(
     indexOfFirstExercise,
     indexOfLastExercise
   );
-
 
   //exercise displays
   const displays = currentExercises.map((exercise) => {
@@ -69,9 +73,11 @@ const SearchBar = ({ handleBack }) => {
     );
   });
 
-
   return (
     <div>
+      <button ref={topPage} onClick={() => handleBack()}>
+        Return to Select Function!
+      </button>
       <div className="search-bar">
         <input
           className="search-bar--input"
@@ -80,30 +86,19 @@ const SearchBar = ({ handleBack }) => {
           onChange={handleChange}
           value={searchInput}
         />
-     
-      {filteredData.length != 0 && (
-        <div>
-          {filteredData.map((val) => {
-            return (
-              <ExerciseDisplay
-                exercise={val}
-                allData={data}
-              />
-            );
-          })}
-        </div>
-      )}
-      <Pagination
-        totalDisplay={filteredData.length}
-        displaysPerPage="12"
-        paginate={paginate}
-        currentPage={currentPage}
-      />
+
+        {filteredData.length != 0 && (
+          <div className="exercise-container">{displays}</div>
+        )}
+        <Pagination
+          totalDisplay={filteredData.length}
+          displaysPerPage="16"
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       </div>
-      <button onClick={() => handleBack()}>Return to Select Function!</button>
     </div>
   );
 };
-
 
 export default SearchBar;

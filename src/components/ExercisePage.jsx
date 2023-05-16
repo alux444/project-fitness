@@ -54,12 +54,6 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
     exercise.target.includes(data.target)
   );
 
-  const test = () => {
-    console.log(videos);
-    console.log(data);
-    console.log(allExercises);
-  };
-
   //randomly generate 3 exercises that have the same target muscles to display
   const getRandomNumber = () => {
     const num = Math.floor(Math.random() * (similarTarget.length - 4));
@@ -91,7 +85,6 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
         {data.target} / {data.bodyPart}
       </h5>
       <img src={data.gifUrl} />
-      <button onClick={test}>test</button>
       <div className="exercise-displays">{mappedVids}</div>
       <h4>Exercises that also target {data.target}</h4>
       <div className="exercise-displays">{displays}</div>

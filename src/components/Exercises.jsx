@@ -77,9 +77,6 @@ const Exercises = ({ targets, cancel }) => {
   //paginate layout
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
-    setTimeout(() => {
-      topOfDisplays.current.scrollIntoView({ behavior: "smooth" });
-    }, 1000);
   };
 
   //exercise displays
@@ -119,7 +116,7 @@ const Exercises = ({ targets, cancel }) => {
         </form>
       )}
       <h3 ref={topOfDisplays}>Checkout other related exercises!</h3>
-      <div className="selections">{displays}</div>
+      <div className="exercise-container">{displays}</div>
       <Pagination
         totalDisplay={filteredExercises.length}
         displaysPerPage="12"
