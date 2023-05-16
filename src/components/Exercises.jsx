@@ -88,41 +88,47 @@ const Exercises = ({ targets, cancel }) => {
 
   return (
     <div>
-      <button onClick={cancel}>Close Search</button>
-      {randomWorkout ? (
-        <div>
-          <RandomWorkout
-            exercises={filteredExercises}
-            targets={toFilter}
-            desiredAmount={{ desiredAmount }}
-            allData={data}
-          />
-
-          <button onClick={close}>Close</button>
-        </div>
-      ) : (
-        <form>
-          <button onClick={generateWorkout}>Generate a random workout!</button>
+      <div>
+        <button onClick={cancel}>Close Search</button>
+      </div>
+      <div className="submitted-div">
+        {randomWorkout ? (
           <div>
-            <small>
-              This will generate {desiredAmount} exercise
-              {desiredAmount === 1 ? null : "s"} for each selection!
-            </small>
-            <div>
-              <button onClick={increaseExercises}>Increase this!</button>
-              <button onClick={decreaseExercises}>Decrease this!</button>
-            </div>
+            <RandomWorkout
+              exercises={filteredExercises}
+              targets={toFilter}
+              desiredAmount={{ desiredAmount }}
+              allData={data}
+            />
+
+            <button onClick={close}>Close</button>
           </div>
-        </form>
-      )}
-      <h3 ref={topOfDisplays}>Checkout other related exercises!</h3>
-      <div className="exercise-container">{displays}</div>
-      <Pagination
-        totalDisplay={filteredExercises.length}
-        displaysPerPage="12"
-        paginate={paginate}
-        currentPage={currentPage}
-      />
+        ) : (
+          <form>
+            <button onClick={generateWorkout}>
+              Generate a random workout!
+            </button>
+            <div>
+              <small>
+                This will generate {desiredAmount} exercise
+                {desiredAmount === 1 ? null : "s"} for each selection!
+              </small>
+              <div>
+                <button onClick={increaseExercises}>Increase this!</button>
+                <button onClick={decreaseExercises}>Decrease this!</button>
+              </div>
+            </div>
+          </form>
+        )}
+        <h3 ref={topOfDisplays}>Checkout other related exercises!</h3>
+        <div className="exercise-container">{displays}</div>
+        <Pagination
+          totalDisplay={filteredExercises.length}
+          displaysPerPage="12"
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      </div>
     </div>
   );
 };

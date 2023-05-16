@@ -127,7 +127,7 @@ const RandomWorkout = ({ exercises, targets, desiredAmount, allData }) => {
         </div>
       ) : (
         <div>
-          {loading ? <p>Loading...</p> : <p>Your Workout Is:</p>}
+          {loading ? <p>Loading...</p> : <h4>Your Workout Is:</h4>}
           <div className="exercise-container">{program}</div>
           <button onClick={() => reroll()}>Reroll!</button>
         </div>
