@@ -91,7 +91,7 @@ const Exercises = ({ targets, cancel }) => {
       <div>
         <button onClick={cancel}>Close Search</button>
       </div>
-      <div className="submitted-div">
+      <div className="submitted">
         {randomWorkout ? (
           <div>
             <RandomWorkout

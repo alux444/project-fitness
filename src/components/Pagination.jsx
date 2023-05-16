@@ -13,7 +13,7 @@ const Pagination = ({
   }
 
   return (
-    <div>
+    <div className="pagination-div">
       <ul className="pagination-list">
         {pageNumbers.map((number) => (
           <li key={number} className="pagination-btn">

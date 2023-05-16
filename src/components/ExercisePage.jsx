@@ -37,14 +37,14 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
 
   //map the values of videos
   const mappedVids = videos.map((video) => (
-    <div key={video.id} style={{ display: "inline-block" }}>
+    <div key={video.id} className="video">
       <h5>{video.title}</h5>
       <a href={video.url} target="_blank" rel="noreferrer">
         <img
           src={video.bestThumbnail.url}
           height={video.bestThumbnail.height}
           width={video.bestThumbnail.width}
-          style={{ width: "50%", height: "50%" }}
+          className="thumbnail"
         />
       </a>
     </div>
@@ -70,6 +70,7 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
   const displays = currentExercises.map((exercise) => {
     return (
       <ExerciseDisplay
+        className="page-display"
         key={exercise.id}
         exercise={exercise}
         allData={allData}
@@ -85,7 +86,7 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
         {data.target} / {data.bodyPart}
       </h5>
       <img src={data.gifUrl} />
-      <div className="exercise-displays">{mappedVids}</div>
+      <div className="video-displays">{mappedVids}</div>
       <h4>Exercises that also target {data.target}</h4>
       <div className="exercise-displays">{displays}</div>
       <button onClick={() => reroll()}>Show me some others!</button>
