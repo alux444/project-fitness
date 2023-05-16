@@ -16,10 +16,13 @@ const Pagination = ({
     <div>
       <ul className="pagination-list">
         {pageNumbers.map((number) => (
-          <li key={number}>
+          <li key={number} className="pagination-btn">
             <button
               onClick={() => paginate(number)}
-              style={{ borderColor: currentPage === number ? "red" : "" }}
+              style={{
+                borderColor: currentPage === number ? "red" : "",
+                width: "60px",
+              }}
             >
               {number}
             </button>

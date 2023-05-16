@@ -12,13 +12,6 @@ const SearchBar = ({ handleBack }) => {
 
   function handleChange(event) {
     setSearchInput(event.target.value);
-    // setFilteredData(
-    //   data.filter((val) => {
-    //     if (val.name.toLowerCase().includes(searchInput.toLowerCase())) {
-    //       return val;
-    //     }
-    //   })
-    // );
   }
 
   const options = {
@@ -86,17 +79,22 @@ const SearchBar = ({ handleBack }) => {
           onChange={handleChange}
           value={searchInput}
         />
-
-        {filteredData.length != 0 && (
-          <div className="exercise-container">{displays}</div>
-        )}
-        <Pagination
-          totalDisplay={filteredData.length}
-          displaysPerPage="16"
-          paginate={paginate}
-          currentPage={currentPage}
-        />
       </div>
+
+      {filteredData.length != 0 ? (
+        <div>
+          <div className="exercise-container">{displays}</div>
+
+          <Pagination
+            totalDisplay={filteredData.length}
+            displaysPerPage="16"
+            paginate={paginate}
+            currentPage={currentPage}
+          />
+        </div>
+      ) : (
+        <p>Sorry, no exercises matched your search :(</p>
+      )}
     </div>
   );
 };
