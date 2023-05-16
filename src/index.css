@@ -46,6 +46,7 @@ button {
   background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin: 15px 0;
 }
 button:hover {
   border-color: #646cff;
@@ -116,7 +117,6 @@ button:focus-visible {
 
 .search-bar {
   display: flex;
-  /* background-color: #f9f9f9; */
   transition: border-color 0.25s;
   justify-content: center;
 }
@@ -125,7 +125,7 @@ button:focus-visible {
   outline: none;
   width: 500px;
   border: 1px solid white;
-  background-color: transparent;
+  background-color: #f9f9f9;
   font-size: 1.25em;
   font-weight: 500;
   font-family: inherit;
