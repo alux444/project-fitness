@@ -104,11 +104,23 @@ const SelectExercises = () => {
             Or use our search function!
           </button>
           <form>
-            <div className="selections">
-              {mappedLegs}
-              {mappedArms}
-              {mappedBack}
-              {mappedOther}
+            <div className="all-selections">
+              <div className="selections">
+                <p>Legs</p>
+                {mappedLegs}
+              </div>
+              <div className="selections">
+                <p>Upper Body</p>
+                {mappedArms}
+              </div>
+              <div className="selections">
+                <p>Back</p>
+                {mappedBack}
+              </div>
+              <div className="selections">
+                <p>Other</p>
+                {mappedOther}
+              </div>
             </div>
             <div>
               <button className="btn" onClick={handleFormSubmit}>

@@ -50,14 +50,10 @@ button {
   background-color: transparent;
   cursor: pointer;
   transition: border-color 0.25s;
-  margin: 15px 0;
+  margin: 15px 0px;
 }
 button:hover {
   border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 5px auto red;
 }
 
 .btn {
@@ -81,7 +77,7 @@ button:focus-visible {
   left: 3%;
   width: 95%;
   height: 40%;
-  background-color: #212121;
+  background-color: transparent;
   transition: 0.5s;
   transform-origin: center;
 }
@@ -94,7 +90,7 @@ button:focus-visible {
   left: 3%;
   width: 95%;
   height: 40%;
-  background-color: #212121;
+  background-color: transparent;
   transition: 0.5s;
 }
 
@@ -163,14 +159,18 @@ button:focus-visible {
 }
 
 .selections {
+  margin-right: 20px;
+}
+
+.all-selections {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  margin: 5px;
+  height: fit-content;
+  justify-content: center;
 }
 
 .selection-box {
-  flex: 0 0 20%;
+  flex: 0 0 25%;
 }
 
 .exercise-container {
@@ -236,10 +236,9 @@ button:focus-visible {
     flex: 0 0 50%;
   }
 
-  .selection-box {
-    flex: 0 0 33%;
+  .selections {
+    width: 100%;
   }
-
   .pagination-div {
     width: 80vw;
   }
@@ -263,6 +262,7 @@ button:focus-visible {
 
   .exercise-page {
     width: 90vw;
+    height: 75vh;
   }
 
   .video {
