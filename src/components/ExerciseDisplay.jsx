@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ExercisePage from "./ExercisePage";
 
-const ExerciseDisplay = ({ exercise, allData }) => {
+const ExerciseDisplay = ({ exercise, allData, pageOnClick }) => {
   const [more, setMore] = useState(false);
+  const handlePage = pageOnClick;
 
   const handleMore = () => {
     console.log(more);
@@ -18,7 +19,11 @@ const ExerciseDisplay = ({ exercise, allData }) => {
       </div>
       <img src={exercise.gifUrl} style={{ width: "40%", height: "40%" }} />
       <div className="parent">
-        <button onClick={() => handleMore()}>Learn More!</button>
+        {pageOnClick === undefined ? (
+          <button onClick={() => handleMore()}>Learn More!</button>
+        ) : (
+          <button onClick={() => handlePage(exercise)}>Learn More!</button>
+        )}
 
         {more ? (
           <ExercisePage

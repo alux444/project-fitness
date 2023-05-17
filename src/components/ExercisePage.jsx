@@ -1,17 +1,22 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ExerciseDisplay from "./ExerciseDisplay";
 
 const ExercisePage = ({ exercise, handleClose, allData }) => {
-  const data = exercise;
+  const [data, setData] = useState(exercise);
   const allExercises = allData;
   const [randomNumber, setRandomNumber] = useState(0);
 
   const [videos, setVideos] = useState([]);
 
+  //references for top of page (scrolling), and whole popup (for closing popup when an outside area is clicked)
+  const topOfPage = useRef(null);
+  const wholePage = useRef(null);
+
   //with the youtube api, will call to fetch the data of related vids
   useEffect(() => {
+    topOfPage.current.scrollIntoView({ behavior: "smooth" });
     const fetchVideos = async () => {
       const options = {
         method: "GET",
@@ -33,7 +38,30 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
       console.log(videos);
     };
     fetchVideos();
+  }, [data]);
+
+  //useEffect to detect if the user clicks out of the popup, if so, close the popup.
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (wholePage.current && !wholePage.current.contains(e.target)) {
+        handleClose();
+      }
+    };
+
+    setTimeout(() => {
+      document.addEventListener("click", handleClickOutside);
+    }, 100);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
   }, []);
+
+  //pageOnClick function for changing exercise when another one is clicked
+  const pageOnClick = (exercise) => {
+    setData(exercise);
+    setVideos([]);
+  };
 
   //map the values of videos
   const mappedVids = videos.map((video) => (
@@ -74,13 +102,16 @@ const ExercisePage = ({ exercise, handleClose, allData }) => {
         key={exercise.id}
         exercise={exercise}
         allData={allData}
+        pageOnClick={pageOnClick}
       />
     );
   });
 
   return (
-    <div className="exercise-page">
-      <button onClick={handleClose}>Close</button>
+    <div className="exercise-page" ref={wholePage}>
+      <button onClick={handleClose} ref={topOfPage}>
+        Close
+      </button>
       <h3>{data.name}</h3>
       <h5>
         {data.target} / {data.bodyPart}
