@@ -6,14 +6,19 @@ const ExerciseDisplay = ({ exercise, allData, pageOnClick }) => {
   const handlePage = pageOnClick;
 
   const handleMore = () => {
-    console.log(more);
-    setMore(!more);
+    setMore(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleClose = () => {
+    setMore(false);
+    document.body.style.overflow = "auto";
   };
 
   //maps an inputted exercise object to a display.
   return (
     <div className="exercise-item">
-      <div>
+      <div className={`all-items ${more ? "popup-active" : ""}`}>
         <h5 className="exercise-name">{exercise.name}</h5>
         <small>{exercise.target}</small>
       </div>
@@ -28,7 +33,7 @@ const ExerciseDisplay = ({ exercise, allData, pageOnClick }) => {
         {more ? (
           <ExercisePage
             exercise={exercise}
-            handleClose={handleMore}
+            handleClose={handleClose}
             allData={allData}
           />
         ) : null}
