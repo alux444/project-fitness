@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ExercisePage from "./ExercisePage";
 
-const ExerciseDisplay = ({ exercise, allData, pageOnClick }) => {
+const ExerciseDisplay = ({ exercise, allData, pageOnClick}) => {
   const [more, setMore] = useState(false);
   const handlePage = pageOnClick;
 
@@ -14,7 +14,7 @@ const ExerciseDisplay = ({ exercise, allData, pageOnClick }) => {
   return (
     <div className="exercise-item">
       <div>
-        <h5>{exercise.name}</h5>
+        <h5 className="exercise-name">{exercise.name}</h5>
         <small>{exercise.target}</small>
       </div>
       <img src={exercise.gifUrl} style={{ width: "40%", height: "40%" }} />

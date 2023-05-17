@@ -74,6 +74,7 @@ button:focus-visible {
   overflow: auto;
 }
 
+
 .pagination-list {
   list-style: none;
   display: flex;
@@ -133,6 +134,12 @@ button:focus-visible {
 .exercise-item {
   margin-bottom: 10px;
   flex: 0 0 25%;
+  background: grey;
+  width: 20px;
+}
+
+.exercise-name {
+  height: 30px;
 }
 
 .search-bar {
