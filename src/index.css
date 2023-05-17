@@ -60,6 +60,53 @@ button:focus-visible {
   outline: 5px auto red;
 }
 
+.btn {
+  width: fit-content;
+  position: relative;
+  height: 3.5em;
+  border: 3px ridge #646cff;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  transition: 1s;
+  border-radius: 0.3em;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  background-color: #212121;
+  transition: 0.5s;
+  transform-origin: center;
+}
+
+.btn::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  top: 80%;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  background-color: #212121;
+  transition: 0.5s;
+}
+
+.btn:hover::before,
+.btn:hover::after {
+  transform: scale(0);
+}
+
+.btn:hover {
+  box-shadow: inset 0px 0px 25px #1479ea;
+}
+
 .exercise-page {
   padding: 15px;
   position: fixed;
@@ -73,7 +120,6 @@ button:focus-visible {
   z-index: 20;
   overflow: auto;
 }
-
 
 .pagination-list {
   list-style: none;
@@ -119,6 +165,8 @@ button:focus-visible {
 .selections {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  margin: 5px;
 }
 
 .selection-box {
@@ -239,4 +287,64 @@ button:focus-visible {
     width: 85%;
     height: 85%;
   }
+}
+
+.material-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #777777;
+  cursor: pointer;
+}
+
+.material-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  border: 2px solid #cf3030;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.material-checkbox input[type="checkbox"]:checked ~ .checkmark {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-color: #10f58a;
+}
+
+.material-checkbox input[type="checkbox"]:checked ~ .checkmark:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 4px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.material-checkbox input[type="checkbox"]:focus ~ .checkmark {
+  box-shadow: 0 0 0 2px #88f00a65;
+}
+
+.material-checkbox:hover input[type="checkbox"] ~ .checkmark {
+  border-color: #1ecb38;
+}
+
+.material-checkbox input[type="checkbox"]:disabled ~ .checkmark {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.material-checkbox input[type="checkbox"]:disabled ~ .checkmark:hover {
+  border-color: #f6bfbf;
 }

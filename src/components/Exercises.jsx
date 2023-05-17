@@ -105,7 +105,7 @@ const Exercises = ({ targets, cancel }) => {
           </div>
         ) : (
           <form>
-            <button onClick={generateWorkout}>
+            <button className="btn" onClick={generateWorkout}>
               Generate a random workout!
             </button>
             <div>

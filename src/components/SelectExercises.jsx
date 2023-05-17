@@ -100,7 +100,7 @@ const SelectExercises = () => {
       ) : (
         <>
           <h2>Select your muscle groups</h2>
-          <button onClick={() => handleToSearch()}>
+          <button className="btn" onClick={() => handleToSearch()}>
             Or use our search function!
           </button>
           <form>
@@ -111,7 +111,9 @@ const SelectExercises = () => {
               {mappedOther}
             </div>
             <div>
-              <button onClick={handleFormSubmit}>Submit</button>
+              <button className="btn" onClick={handleFormSubmit}>
+                Submit
+              </button>
             </div>
           </form>
         </>

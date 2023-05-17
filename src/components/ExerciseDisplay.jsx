@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ExercisePage from "./ExercisePage";
 
-const ExerciseDisplay = ({ exercise, allData, pageOnClick}) => {
+const ExerciseDisplay = ({ exercise, allData, pageOnClick }) => {
   const [more, setMore] = useState(false);
   const handlePage = pageOnClick;
 

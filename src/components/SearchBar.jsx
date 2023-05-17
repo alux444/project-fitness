@@ -49,7 +49,7 @@ const SearchBar = ({ handleBack }) => {
     setCurrentPage(pageNumber);
     setTimeout(() => {
       topPage.current.scrollIntoView({ behavior: "smooth" });
-    }, 1000);
+    }, 300);
   };
 
   //get current exercises
