@@ -177,7 +177,6 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-left: 3px;
 }
 
 .exercise-item {
@@ -242,7 +241,6 @@ button:hover {
   }
   .pagination-div {
     width: 80vw;
-    margin-left: -5px;
   }
 
   .pagination-btn {
@@ -265,6 +263,10 @@ button:hover {
   .exercise-page {
     width: 90vw;
     height: 75vh;
+  }
+
+  .pagination-div {
+    padding-left: 8px;
   }
 
   .video {
