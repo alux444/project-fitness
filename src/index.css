@@ -177,6 +177,7 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-left: 3px;
 }
 
 .exercise-item {
@@ -237,10 +238,11 @@ button:hover {
   }
 
   .selections {
-    width: 100%;
+    width: 40%;
   }
   .pagination-div {
     width: 80vw;
+    margin-left: -5px;
   }
 
   .pagination-btn {
