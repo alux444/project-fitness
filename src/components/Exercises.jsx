@@ -86,6 +86,14 @@ const Exercises = ({ targets, cancel }) => {
     );
   });
 
+  //display targets
+  const targetDisplay = targets.map((target, index) => (
+    <span key={index}>
+      {target}
+      {index !== targets.length - 1 ? ", " : ""}
+    </span>
+  ));
+
   return (
     <div>
       <div>
@@ -113,6 +121,12 @@ const Exercises = ({ targets, cancel }) => {
                 This will generate {desiredAmount} exercise
                 {desiredAmount === 1 ? null : "s"} for each selection!
               </small>
+              <div>
+                <small>You are searching for : {targetDisplay}</small>
+              </div>
+              <div>
+                <small>Submit another selection to change this!</small>
+              </div>
               <div>
                 <button onClick={increaseExercises}>Increase this!</button>
                 <button onClick={decreaseExercises}>Decrease this!</button>
